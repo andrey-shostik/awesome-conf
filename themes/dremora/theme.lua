@@ -9,7 +9,7 @@
 theme                               = {}
 
 theme.dir                           = os.getenv("HOME") .. "/.config/awesome/themes/dremora"
-theme.wallpaper                     = "~/Pictures/Wallpapers/wallpaper-2552963.jpg"
+theme.wallpaper                     = theme.dir .. "/wall.jpg"
 
 theme.font                          = "Sans 8"
 theme.taglist_font                  = "Icons 10"
