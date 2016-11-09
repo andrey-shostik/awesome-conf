@@ -42,7 +42,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/themes/dremora/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -70,7 +70,7 @@ local layouts =
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.magnifier,
 }
 -- }}}
 
@@ -388,15 +388,13 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "skypeforlinux" },
+      properties = { }, callback = function (c)
+        if not skipMovingGC then
+          awful.client.movetotag(tags[1][9], c)
+          skipMovingGC = true
+        end
+      end },
 }
 -- }}}
 
@@ -472,6 +470,25 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+function run_once(prg,arg_string,pname,screen)
+    if not prg then
+        do return nil end
+    end
+
+    if not pname then
+       pname = prg
+    end
+
+    if not arg_string then
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+    else
+        awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. " ".. arg_string .."' || (" .. prg .. " " .. arg_string .. ")",screen)
+    end
+end
+
+awful.util.spawn("skypeforlinux")
+run_once("gxkb","startup", nil, 1)
+
+awful.util.spawn_with_shell("killall ibus-x11")
+awful.util.spawn_with_shell("nmcli c up 304RT-NK")
 -- }}}
