@@ -1,0 +1,42 @@
+[global_config]
+  borderless = True
+  inactive_color_offset = 1.0
+  suppress_multiple_term_dialog = True
+  tab_position = hidden
+  title_receive_bg_color = "#191b1c"
+  title_receive_fg_color = "#000000"
+  title_transmit_bg_color = "#939393"
+  title_transmit_fg_color = "#000000"
+[keybindings]
+  close_window = <Primary>q
+  line_down = <Primary><Alt>Down
+  line_up = <Primary><Alt>Up
+  new_tab = <Primary>t
+  next_tab = <Primary>Tab
+  page_down = Page_Down
+  page_up = Page_Up
+  prev_tab = <Primary><Shift>Tab
+  split_horiz = None
+  split_vert = None
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#191b1c"
+    background_darkness = 0.87
+    background_image = None
+    background_type = transparent
+    font = Ubuntu Mono 11
+    foreground_color = "#ffffff"
+    palette = "#1e1e1e:#f52c72:#b2e01d:#e3dc76:#68dbe8:#b084fa:#a8cf29:#e5e5e5:#404040:#f52c72:#e3dc76:#a8cf29:#68dbe8:#b084fa:#a8cf29:#ffffff"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
