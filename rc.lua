@@ -207,7 +207,9 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.layout.margin(wibox.widget.systray(), 0, 0, 0, 0)) end
+    right_layout:add(memicon)
     right_layout:add(memwidget)
+
     right_layout:add(cpuwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
@@ -235,6 +237,9 @@ root.buttons(awful.util.table.join(
 --
 
     globalkeys = awful.util.table.join(
+
+    awful.key({           }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 3%+ unmute")end),
+    awful.key({           }, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 3%- unmute") end ),
 
     awful.key({ }, "Print", function () awful.util.spawn("escrotum -C") end),
     awful.key({ "Shift" }, "Print", function () awful.util.spawn("escrotum -s -C") end),
@@ -303,7 +308,9 @@ root.buttons(awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell('rofi -show run -fg "#eceff1" -bg "#263238" -hlfg "#AFE28A" -hlbg "#263238" -bc "#37474F" -lines 8 -bw 0 -font "Sans 12" -padding 25 ') end),
+    awful.key({ modkey },            "s",     function () awful.util.spawn_with_shell('rofi -show window -fg "#eceff1" -bg "#263238" -hlfg "#AFE28A" -hlbg "#263238" -bc "#37474F" -lines 8 -bw 0 -font "Sans 12" -padding 25  -color-active "black" ') end),
 
     awful.key({ modkey }, "x",
               function ()
