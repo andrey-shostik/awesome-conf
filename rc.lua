@@ -237,9 +237,11 @@ root.buttons(awful.util.table.join(
 --
 
     globalkeys = awful.util.table.join(
+awful.key({ modkey,           }, "[", function () awful.util.spawn("xbacklight -dec 15") end),
+awful.key({ modkey,           }, "]", function () awful.util.spawn("xbacklight -inc 15") end),
 
-    awful.key({           }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 3%+ unmute")end),
-    awful.key({           }, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 3%- unmute") end ),
+    awful.key({           }, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 5%+ unmute")end),
+    awful.key({           }, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell("amixer -D pulse set Master 5%- unmute") end ),
 
     awful.key({ }, "Print", function () awful.util.spawn("escrotum -C") end),
     awful.key({ "Shift" }, "Print", function () awful.util.spawn("escrotum -s -C") end),
@@ -309,7 +311,8 @@ root.buttons(awful.util.table.join(
 
     -- Prompt
     --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell('rofi -show run -fg "#eceff1" -bg "#263238" -hlfg "#AFE28A" -hlbg "#263238" -bc "#37474F" -lines 8 -bw 0 -font "Sans 12" -padding 25 ') end),
+    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell('rofi -show run') end),
+    -- -fg "#eceff1" -bg "#263238" -hlfg "#AFE28A" -hlbg "#263238" -bc "#37474F" -lines 8 -bw 0 -font "Sans 12" -padding 25
     awful.key({ modkey },            "s",     function () awful.util.spawn_with_shell('rofi -show window -fg "#eceff1" -bg "#263238" -hlfg "#AFE28A" -hlbg "#263238" -bc "#37474F" -lines 8 -bw 0 -font "Sans 12" -padding 25  -color-active "black" ') end),
 
     awful.key({ modkey }, "x",
@@ -409,7 +412,7 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "skypeforlinux" },
+    { rule = { class = "skype" },
       properties = { }, callback = function (c)
         if not skipMovingGC then
           awful.client.movetotag(tags[1][9], c)
@@ -507,7 +510,7 @@ function run_once(prg,arg_string,pname,screen)
     end
 end
 
-awful.util.spawn("skypeforlinux")
+awful.util.spawn("skype")
 run_once("gxkb","startup", nil, 1)
 
 awful.util.spawn_with_shell("killall ibus-x11")
